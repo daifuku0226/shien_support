@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>出雲市子ども支援ファイル × 3rd jr high school</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: #f0fdfa;
+            color: #334155;
+        }
+        
+        .btn-3d {
+            position: relative;
+            display: inline-block;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+            border-radius: 9999px;
+            font-weight: bold;
+            text-decoration: none;
+            text-align: center;
+            line-height: 1.4;
+        }
+        
+        .btn-3d-primary {
+            background: #0ea5e9;
+            box-shadow: 0 6px 0 #0369a1;
+            color: white;
+        }
+        
+        .btn-3d-primary:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 #0369a1;
+        }
+        
+        .btn-3d-secondary {
+            background: #10b981;
+            box-shadow: 0 6px 0 #047857;
+            color: white;
+        }
+        
+        .btn-3d-secondary:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 #047857;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, #0ea5e9, #10b981);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hidden {
+            opacity: 0;
+            visibility: hidden;
+            display: none !important;
+        }
+        #download-toast {
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+
+    <!-- ヘッダー -->
+    <header class="container mx-auto px-6 py-4 flex justify-between items-center">
+        <div class="text-2xl font-bold text-sky-600 flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5s3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+            </svg>
+            3rd jr high school
+        </div>
+        <a href="#" class="btn-3d btn-3d-primary px-6 py-2 text-sm">お問い合わせ</a>
+    </header>
+
+    <!-- ヒーローセクション -->
+    <section class="container mx-auto px-6 py-16 md:py-24 text-center">
+        <div class="inline-block px-4 py-1 bg-sky-100 text-sky-700 rounded-full text-sm font-bold mb-6">
+            出雲市の教育現場に、もっとゆとりと笑顔を。
+        </div>
+        <h1 class="text-4xl md:text-5xl font-extrabold mb-8 leading-tight">
+            出雲市子ども支援ファイル・<br class="md:hidden">個別の教育指導計画を<br>
+            <span class="gradient-text">もっとスマートに、もっと前向きに.</span>
+        </h1>
+        <p class="text-lg md:text-xl text-slate-600 mb-12 max-w-2xl mx-auto">
+            煩雑な書類作成をサポートし、<br>
+            先生が本来の「子どもと向き合う時間」を最大化するためのツールです。
+        </p>
+        
+        <!-- ボタンエリア -->
+        <div class="flex flex-col items-center gap-6">
+            <button onclick="openGuidePdf()" class="btn-3d btn-3d-primary px-10 py-4 text-lg w-full max-w-md">
+                支援計画・指導計画とは
+            </button>
+            
+            <div class="flex flex-col md:flex-row justify-center gap-6 w-full max-w-4xl px-4">
+                <button onclick="downloadSupportFiles()" class="btn-3d btn-3d-secondary px-6 py-4 text-md flex-1">
+                    出雲市子ども支援ファイル<br>全資料を一括ダウンロード
+                </button>
+                <button onclick="downloadInstructionPlan()" class="btn-3d btn-3d-secondary px-6 py-4 text-md flex-1">
+                    個別の教育指導計画<br>様式をワードでダウンロード
+                </button>
+            </div>
+        </div>
+        
+        <!-- プレビュー -->
+        <div class="mt-16 flex justify-center">
+            <div class="glass-card p-4 shadow-2xl max-w-4xl w-full border-t-4 border-sky-400">
+                <div class="bg-white rounded-lg overflow-hidden border border-slate-200">
+                    <div class="bg-slate-50 border-b p-3 flex gap-2">
+                        <div class="w-3 h-3 rounded-full bg-red-400"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-400"></div>
+                        <div class="text-xs text-slate-400 ml-4 font-mono uppercase">Document_Preview</div>
+                    </div>
+                    <div class="p-8 text-left h-64 flex flex-col justify-between">
+                        <div>
+                            <div class="h-4 w-3/4 bg-slate-100 rounded mb-4"></div>
+                            <div class="h-4 w-1/2 bg-slate-100 rounded mb-4"></div>
+                            <div class="grid grid-cols-2 gap-4 mt-8">
+                                <div class="h-24 bg-sky-50 rounded-xl border-2 border-dashed border-sky-200 flex items-center justify-center text-sky-400 font-bold text-center px-2">支援情報の共有</div>
+                                <div class="h-24 bg-emerald-50 rounded-xl border-2 border-dashed border-emerald-200 flex items-center justify-center text-emerald-400 font-bold text-center px-2">指導計画の作成</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ダウンロード通知 (トースト) -->
+    <div id="download-toast" class="fixed bottom-10 right-10 z-[100] hidden">
+        <div class="bg-slate-800 text-white px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-4 border border-slate-700">
+            <div class="w-10 h-10 bg-emerald-500 rounded-full flex items-center justify-center text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+                </svg>
+            </div>
+            <div>
+                <p id="toast-title" class="font-bold">処理を開始しました</p>
+                <p id="toast-desc" class="text-xs text-slate-400">ファイルを取得しています...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- フッター -->
+    <footer class="bg-slate-900 text-slate-400 py-12 mt-20">
+        <div class="container mx-auto px-6 text-center">
+            <p class="text-sm">&copy; 2026 3rd jr high school. Supporting Izumo Children's Future.</p>
+        </div>
+    </footer>
+
+    <script>
+        function showToast(title, desc) {
+            const toast = document.getElementById('download-toast');
+            document.getElementById('toast-title').innerText = title;
+            document.getElementById('toast-desc').innerText = desc;
+            toast.classList.remove('hidden');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 4000);
+        }
+
+        const BASE_URL = "https://daifuku0226.github.io/shien_support/";
+        const FILE_URLS = {
+            guide_pdf: BASE_URL + "Special_Needs_Planning_Guide.pdf",
+            support_files: [
+                BASE_URL + "01.docx",
+                BASE_URL + "02.docx",
+                BASE_URL + "03.docx",
+                BASE_URL + "04.docx",
+                BASE_URL + "05.docx"
+            ],
+            instruction_docx: BASE_URL + "05.docx"
+        };
+
+        /**
+         * PDFを別タブで表示（これは動作が安定しています）
+         */
+        function openGuidePdf() {
+            window.open(FILE_URLS.guide_pdf, '_blank');
+        }
+
+        /**
+         * ファイルをダウンロードさせる補助関数
+         */
+        function triggerDownload(url, filename) {
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename || url.split('/').pop();
+            // セキュリティ対策としてターゲットを_blankに設定する場合もあるが
+            // ダウンロードの場合はこのままDOMに追加してクリック
+            document.body.appendChild(a);
+            a.click();
+            setTimeout(() => document.body.removeChild(a), 100);
+        }
+
+        /**
+         * 5つのファイルを一括ダウンロード
+         */
+        function downloadSupportFiles() {
+            showToast("一括ダウンロード", "5つのファイルを取得します。ブラウザの許可を確認してください。");
+            
+            FILE_URLS.support_files.forEach((url, index) => {
+                // ブラウザのブロックを回避するため、実行間隔を空ける
+                setTimeout(() => {
+                    triggerDownload(url);
+                }, index * 800); 
+            });
+        }
+
+        /**
+         * 指導計画（05.docx）をダウンロード
+         */
+        function downloadInstructionPlan() {
+            showToast("ダウンロード開始", "指導計画様式(05.docx)を保存します。");
+            triggerDownload(FILE_URLS.instruction_docx, "05.docx");
+        }
+    </script>
+
+</body>
+</html>
